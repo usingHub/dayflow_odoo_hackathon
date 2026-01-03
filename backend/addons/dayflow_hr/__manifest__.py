@@ -17,7 +17,7 @@
         "hr_holidays",     # Leave / Time-off
     ],
     "data": [
-        "security/security.xml",
+        #"security/security.xml",
         "security/ir.model.access.csv",
     ],
     "installable": True,

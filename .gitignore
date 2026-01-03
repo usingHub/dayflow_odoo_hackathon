@@ -4,6 +4,7 @@ __pycache__/
 .env
 
 # Odoo
+odoo.conf
 *.log
 .odoo/
 filestore/
