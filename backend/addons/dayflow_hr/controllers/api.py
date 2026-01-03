@@ -39,7 +39,7 @@ class DayflowAPI(http.Controller):
         )
         return leaves
     
-class DayflowAPI(http.Controller):
+
 
     @http.route("/api/attendance/check_in", type="json", auth="user")
     def check_in(self):
@@ -102,4 +102,50 @@ class DayflowAPI(http.Controller):
             "manager_comment": data.get("comment"),
         })
         return {"status": "updated"}
+    
+    @http.route("/api/salary/self", type="json", auth="user")
+    def my_salary(self):
+        employee = request.env["hr.employee"].search(
+            [("user_id", "=", request.env.user.id)], limit=1
+        )
+        contract = request.env["hr.contract"].search(
+            [("employee_id", "=", employee.id)], limit=1
+        )
+
+        if not contract:
+            return {}
+
+        return {
+            "wage": contract.wage,
+            "basic": contract.basic,
+            "hra": contract.hra,
+            "standard_allowance": contract.standard_allowance,
+            "bonus": contract.bonus,
+            "lta": contract.lta,
+            "fixed_allowance": contract.fixed_allowance,
+        }
+
+    @http.route("/api/salary/admin", type="json", auth="user")
+    def admin_salary_view(self, **data):
+        if not request.env.user.has_group("hr.group_hr_manager"):
+            raise AccessError("Not allowed")
+
+        employee_id = data.get("employee_id")
+        contract = request.env["hr.contract"].search(
+            [("employee_id", "=", employee_id)], limit=1
+        )
+
+        if not contract:
+            return {}
+
+        return {
+            "employee_id": employee_id,
+            "wage": contract.wage,
+            "basic": contract.basic,
+            "hra": contract.hra,
+            "standard_allowance": contract.standard_allowance,
+            "bonus": contract.bonus,
+            "lta": contract.lta,
+            "fixed_allowance": contract.fixed_allowance,
+        }
 
