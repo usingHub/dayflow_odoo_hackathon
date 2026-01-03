@@ -1,0 +1,16 @@
+# Python
+__pycache__/
+*.pyc
+.env
+
+# Odoo
+*.log
+.odoo/
+filestore/
+
+# Node
+node_modules/
+dist/
+
+# OS
+.DS_Store
