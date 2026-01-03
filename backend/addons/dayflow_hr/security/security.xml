@@ -1,0 +1,8 @@
+<?xml version="1.0." encoding= "UTF-8" ?>
+<odoo>
+    <!-- No custom groups yet.
+         We rely on existing Odoo groups:
+         - hr.group_hr_manager (Admin)
+         - base.group_user (Employee)
+    -->
+</odoo>
